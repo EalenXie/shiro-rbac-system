@@ -1,0 +1,26 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: shiro-rbac-system
+  resources:
+    static-locations: classpath:/
+  freemarker:
+    template-loader-path: classpath:/templates/
+    suffix: .html
+    content-type: text/html
+    charset: UTF-8
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yourdatabase?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: yourname
+    password: yourpass
+  jpa:
+#    show-sql: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: false # 禁用 OSIV <Spring Boot中默认启用了OSIV(Open Session in View)>
+  http:
+    encoding:
+      charset: utf-8
+      enabled: true
