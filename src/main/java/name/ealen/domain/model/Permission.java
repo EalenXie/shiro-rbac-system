@@ -1,6 +1,9 @@
 package name.ealen.domain.model;
 
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 
 /**
@@ -8,6 +11,8 @@ import javax.persistence.*;
  * <p>
  * 权限许可（Permission) 操作 及其能访问url 权限对应一个url地址
  */
+@EqualsAndHashCode(callSuper = true)
+@Data
 @Entity
 @Table(name = "system_shiro_permission")
 public class Permission extends BaseEntity {
@@ -17,27 +22,4 @@ public class Permission extends BaseEntity {
     private String url;                 //访问地址信息 唯一
     private String description;         //描述信息
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
