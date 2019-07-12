@@ -17,7 +17,7 @@ public interface RBACService {
      * @param username 传入的用户名
      * @param password 传入的密码(明文)
      */
-    public ResponseEntity login(String username, String password);
+    ResponseEntity login(String username, String password);
 
-    public ResponseEntity logout();
+    ResponseEntity logout();
 }
