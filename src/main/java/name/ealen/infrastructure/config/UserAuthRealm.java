@@ -1,20 +1,20 @@
 package name.ealen.infrastructure.config;
 
 import name.ealen.domain.dao.UserRepository;
-import name.ealen.domain.model.Permission;
-import name.ealen.domain.model.Role;
-import name.ealen.domain.model.User;
+import name.ealen.domain.entity.Permission;
+import name.ealen.domain.entity.Role;
+import name.ealen.domain.entity.User;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -28,6 +28,17 @@ public class UserAuthRealm extends AuthorizingRealm {
 
     @Resource
     private UserRepository userRepository;
+
+    @Resource
+    HashedCredentialsMatcher hashedCredentialsMatcher;
+    /**
+     * 设置 realm的 HashedCredentialsMatcher
+     */
+    @PostConstruct
+    public void setHashedCredentialsMatcher() {
+        this.setCredentialsMatcher(hashedCredentialsMatcher);
+    }
+
 
     /**
      * 权限核心配置 根据数据库中的该用户 角色 和 权限
@@ -62,22 +73,8 @@ public class UserAuthRealm extends AuthorizingRealm {
         );
     }
 
-    /**
-     * 设置 realm的 HashedCredentialsMatcher
-     */
-    @PostConstruct
-    public void setHashedCredentialsMatcher() {
-        this.setCredentialsMatcher(hashedCredentialsMatcher());
-    }
 
-    /**
-     * 凭证匹配 : 指定 加密算法,散列次数
-     */
-    @Bean
-    public HashedCredentialsMatcher hashedCredentialsMatcher() {
-        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");   //散列算法:这里使用MD5算法
-        hashedCredentialsMatcher.setHashIterations(1024); //散列的次数，比如散列两次，相当于 md5(md5(""))
-        return hashedCredentialsMatcher;
-    }
+
+
+
 }

@@ -1,6 +1,7 @@
 package name.ealen.domain.service;
 
 import name.ealen.application.RBACService;
+import name.ealen.domain.vo.Resp;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -15,18 +16,18 @@ public class UserLoginApiService implements RBACService {
 
 
     @Override
-    public ResponseEntity login(String username, String password) {
+    public ResponseEntity<Resp> login(String username, String password) {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         subject.login(token);// 执行认证登陆
-        return ResponseEntity.ok("{\"message\":\"登陆成功\"}");
+        return ResponseEntity.ok(new Resp("登录成功"));
     }
 
     @Override
-    public ResponseEntity logout() {
+    public ResponseEntity<Resp> logout() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        return ResponseEntity.ok("{\"message\":\"登出成功\"}");
+        return ResponseEntity.ok(new Resp("登出成功"));
     }
 
 }

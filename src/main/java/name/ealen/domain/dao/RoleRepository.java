@@ -1,6 +1,6 @@
 package name.ealen.domain.dao;
 
-import name.ealen.domain.model.Role;
+import name.ealen.domain.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

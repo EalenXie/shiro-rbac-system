@@ -1,11 +1,9 @@
 package name.ealen.interfaces.facade;
 
 import name.ealen.domain.service.UserLoginApiService;
+import name.ealen.domain.vo.Resp;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -25,22 +23,23 @@ public class LoginApiFacade {
      *
      * @param params 包含必传信息 用户名 密码
      */
-    @RequestMapping(value = "/open/api/login", method = RequestMethod.POST)
-    public ResponseEntity login(@RequestBody Map<String, String> params) {
+    @PostMapping(value = "/open/api/login")
+    public ResponseEntity<Resp> login(@RequestBody Map<String, String> params) {
         if (params.containsKey("username") && params.containsKey("password")) {
             String username = params.get("username");
             String password = params.get("password");
             return userLoginApiService.login(username, password);
         } else {
-            return ResponseEntity.badRequest().body("{\"message\":\"缺少重要参数或参数无效\"}");
+            return ResponseEntity.badRequest().body(new Resp("缺少重要参数或参数无效"));
+
         }
     }
 
     /**
      * 登出 API
      */
-    @RequestMapping(value = "/open/api/logout", method = RequestMethod.POST)
-    public ResponseEntity logout() {
+    @PostMapping(value = "/open/api/logout")
+    public ResponseEntity<Resp> logout() {
         return userLoginApiService.logout();
     }
 

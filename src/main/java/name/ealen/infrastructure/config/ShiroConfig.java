@@ -1,7 +1,8 @@
 package name.ealen.infrastructure.config;
 
 import name.ealen.domain.dao.PermissionRepository;
-import name.ealen.domain.model.Permission;
+import name.ealen.domain.entity.Permission;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -47,7 +48,6 @@ public class ShiroConfig {
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userAuthRealm);
-//        securityManager.setRealm(xxxxRealm);
         return securityManager;
     }
 
@@ -82,5 +82,16 @@ public class ShiroConfig {
         filterMap.put("/logout", "logout");     //配置登出页,shiro已经帮我们实现了跳转
         filterMap.put("/**", "authc");          //所有资源都需要经过验证
         return filterMap;
+    }
+
+    /**
+     * 凭证匹配 : 指定 加密算法,散列次数
+     */
+    @Bean
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        hashedCredentialsMatcher.setHashAlgorithmName("md5");   //散列算法:这里使用MD5算法
+        hashedCredentialsMatcher.setHashIterations(1024); //散列的次数，比如散列两次，相当于 md5(md5(""))
+        return hashedCredentialsMatcher;
     }
 }

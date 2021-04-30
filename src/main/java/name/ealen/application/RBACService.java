@@ -1,5 +1,6 @@
 package name.ealen.application;
 
+import name.ealen.domain.vo.Resp;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -17,7 +18,7 @@ public interface RBACService {
      * @param username 传入的用户名
      * @param password 传入的密码(明文)
      */
-    ResponseEntity login(String username, String password);
+    ResponseEntity<Resp> login(String username, String password);
 
-    ResponseEntity logout();
+    ResponseEntity<Resp> logout();
 }

@@ -1,8 +1,8 @@
 package name.ealen.interfaces.facade;
 
 import org.apache.shiro.authz.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -86,7 +86,7 @@ public class AuthorizationApiFacade {
     /**
      * 公开接口
      */
-    @RequestMapping(value = "/open/api/sayHello", method = RequestMethod.POST)
+    @PostMapping(value = "/open/api/sayHello")
     public Map<String, String> sayHello() {
         Map<String, String> result = new HashMap<>();
         result.put("msg", "这个是公开接口,谁都可以访问");

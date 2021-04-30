@@ -19,7 +19,7 @@ SpringBoot整合Shiro实现基于角色的权限访问控制(RBAC)系统简单�
 1. 请修改你自己的数据库配置: /application.yml
 
 
-2. 请为这个例子测试准备基础数据: shiro-rbac-system.sql
+2. 请为这个例子测试准备基础数据: [shiro-rbac-system.sql](https://github.com/EalenXie/shiro-rbac-system/blob/master/src/main/resources/shiro-rbac-system.sql)
 
 
 #### 3 . 相关测试 : 

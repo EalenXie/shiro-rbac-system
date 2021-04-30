@@ -1,4 +1,4 @@
-package name.ealen.domain.model;
+package name.ealen.domain.entity;
 
 
 import lombok.Data;
